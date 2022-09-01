@@ -6,12 +6,24 @@ public class Stack{
         stack = new int[n];
     }
     public void push(int i) throws RuntimeException{
-        if (place >= stack.length-1) throw(new RuntimeException("StackOverflow"));
-        stack[place++] = i;
+        try{
+            stack[place++] = i;
+        }catch(ArrayIndexOutOfBoundsException a){
+            throw(new RuntimeException("StackOverflow"));
+        }
     }
-
     public int pop()throws RuntimeException{
-        if (place <= 0) throw(new RuntimeException("StackUnderflow"));
-        return stack[--place];
+        try{
+            return stack[--place];
+        }catch(ArrayIndexOutOfBoundsException a){
+            throw(new RuntimeException("StackUnderflow"));
+        }
+    }
+    public java.lang.Integer peek(){
+        if (place == 0) return null;
+        else{
+            return stack[place-1];
+        }
+    
     }
 }
