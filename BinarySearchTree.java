@@ -51,20 +51,21 @@ public class BinarySearchTree{
         node l = victim.l_child;
         node r = victim.r_child;
         if (victim.parent == null) victim = null; // In the case where the root node is being deleted
-        else if (l == null && r == null){ //scrub
+        else if (l == null && r == null){ //scrub (no child)
             if (victim.parent.l_child.equals(victim)) victim.parent.l_child = null;
             else victim.parent.r_child = null;
         }
-        else if (l == null && r != null){ //splice
+        else if (l == null && r != null){ //splice (1 child)
             victim.parent.r_child = r;
         }
         else if (l != null && r == null){
             victim.parent.l_child = l;
-        }else{ //rotate 
+        }else{ //rotate (2 children)
             rotate(victim);
         }
     }
 
+    //Takes a minimum of the right side and use it to patch hole
     public void rotate(node victim){
         node l = victim.l_child;
         node r = victim.r_child;
