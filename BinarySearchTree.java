@@ -45,7 +45,10 @@ public class BinarySearchTree{
         pw = tree.printwalk();
         if (pw.equals("0 3 3 4 6 9 ")) pass++; else fail++;
 
+        if (tree.depth() == 3) pass++; else fail++;
+
         System.out.println("pass:"+pass + ", fail:" + fail);
+
     }
     public void delete(node victim){
         node l = victim.l_child;
@@ -63,6 +66,10 @@ public class BinarySearchTree{
         }else{ //rotate (2 children)
             rotate(victim);
         }
+    }
+
+    public int depth(){
+        return root.depth();
     }
 
     //Takes a minimum of the right side and use it to patch hole
@@ -151,6 +158,14 @@ class node{
     public node(int v, node p){
         val = v;
         parent = p;
+    }
+    public int depth(){
+        if (l_child == null && r_child == null) return 0;
+
+        if (l_child == null) return r_child.depth()+1;
+        if (r_child == null) return l_child.depth()+1;
+
+        return Math.max(r_child.depth()+1,l_child.depth()+1);
     }
     public String toString(){
         return String.valueOf(val);
