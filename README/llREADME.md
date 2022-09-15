@@ -7,13 +7,13 @@ Acknowledgments:
     Mr.Kuszmaul
 
 List of methods:\
-    >LinkedList:\
-        >>public LinkedList(int h)\
-        >>void push(int n)\
-        >>node index(int i)\
-        >>String printwalk()\
-        >>void delete(node victim)\
-    >node:\
-        >>node(int v, node p)\
-        >>String toString()\
-        >>int getVal()\
+____LinkedList:\
+______public LinkedList(int h)\
+______void push(int n)\
+______node index(int i)\
+______String printwalk()\
+______void delete(node victim)\
+____node:\
+______node(int v, node p)\
+______String toString()\
+______int getVal()\
