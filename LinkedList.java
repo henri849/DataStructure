@@ -25,7 +25,7 @@ public class LinkedList{
         }
         list.push(9);
         if (list.printwalk().equals("3 1 4 9")) pass++; else fail++;
-        
+
         list.delete(list.index(2));
         if (list.printwalk().equals("3 1 9")) pass++; else fail++;
 
@@ -35,6 +35,7 @@ public class LinkedList{
         System.out.println("pass:"+pass + ", fail:" + fail + ", caught exceptions:"+caught + ", lost exceptions:" + lost);
     }
 
+
     public void push(int n){
         node i = head;
         while (i.child != null){
@@ -43,6 +44,7 @@ public class LinkedList{
         i.child = new node(n,i);
     }
 
+    //returns node a specific index with head being at 0
     public node index(int i)throws RuntimeException{
         node c = head;
         for (int j = 0; j<= i; j++){
@@ -57,7 +59,7 @@ public class LinkedList{
         return c;
     }
 
-
+    //Prints in order from head
     public String printwalk(){
         node i = head;
         String ans = "";
@@ -69,6 +71,7 @@ public class LinkedList{
         return ans;
     }
 
+    //removes given victim
     public void delete(node victim){
         if (victim.child == null) victim.parent.child = null;
         else{

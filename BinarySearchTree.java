@@ -4,6 +4,7 @@ public class BinarySearchTree{
     public BinarySearchTree(int r){
         root = new node(r,null);
     }
+
     public static void main(String[] args){
         int pass =0;
         int fail = 0;
@@ -50,6 +51,8 @@ public class BinarySearchTree{
         System.out.println("pass:"+pass + ", fail:" + fail);
 
     }
+
+    //removes given victim
     public void delete(node victim){
         node l = victim.l_child;
         node r = victim.r_child;
@@ -68,6 +71,7 @@ public class BinarySearchTree{
         }
     }
 
+    //returns the depth of deepest node
     public int depth(){
         return root.depth();
     }
@@ -122,10 +126,14 @@ public class BinarySearchTree{
         if ((parent == null && min.getVal() > start.getVal()) || min.getVal() > parent.getVal()) return min;
         return parent;
     }
+
+    //returns smallest node
     public node minimum(node top){
         if (top == null || top.l_child == null) return top;
         return minimum(top.l_child);
     }
+
+    //Inserts node at given location
     public void Insert(int n){
         find_insert(root, n);
     }
@@ -159,6 +167,7 @@ class node{
         val = v;
         parent = p;
     }
+    //recursively find the depth of the tree
     public int depth(){
         if (l_child == null && r_child == null) return 0;
 
@@ -167,6 +176,7 @@ class node{
 
         return Math.max(r_child.depth()+1,l_child.depth()+1);
     }
+    //returns string version of value
     public String toString(){
         return String.valueOf(val);
     }
