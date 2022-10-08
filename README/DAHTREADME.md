@@ -18,7 +18,9 @@ __________Finds the presented datapoint in the Hash Table and switches it out fo
 ______Data search(int key)\
 __________returns Data object for requested key integer\
 ______int hash(int key)\
-__________Returns a hash, current set to be direct
+__________Returns a hash, current set to be direct\
+______int rehash(int key)\
+__________Does linear probing to find new hash, throws exceptions
 
 ___Data:\
 ______Data(int value, int key)\
