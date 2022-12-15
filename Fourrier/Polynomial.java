@@ -28,6 +28,44 @@ public class Polynomial{
         return new Polynomial(co).evaluate(x);
     }
 
+    public static Complex[] fft(Complex[] x) throws IllegalArgumentException {// radix 2 Cooley-Tukey FFT from https://introcs.cs.princeton.edu/java/97data/FFT.java.html
+        //this effectively takes in x as the coeffs of the polynomial and evaluates it at the roots of unity (number coreponds to degree +1 of coeefs)
+
+        int l = x.length;
+        // recursion catching
+        if (l == 1) return new Complex[] { x[0] };
+        if (l % 2 != 0) {
+            throw new IllegalArgumentException("l is not a power of 2");
+        }
+        // compute FFT of even terms
+
+        Complex[] even = new Complex[l/2];
+        for (int k = 0; k < l/2; k++) {
+            even[k] = x[2*k];
+        }
+        Complex[] evenFFT = fft(even);
+
+        // compute FFT of odd terms
+        Complex[] odd = even;  // reuse the array
+        for (int k = 0; k < l/2; k++) {
+            odd[k] = x[2*k + 1];
+        }
+        Complex[] oddFFT = fft(odd);
+
+        // combine
+        Complex[] y = new Complex[l];
+        for (int k = 0; k < l/2; k++) {
+            double kth = -2 * k * Math.PI / l;
+            Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
+            y[k] = evenFFT[k].plus(wk.multiply(oddFFT[k]));
+            y[k + l/2] = evenFFT[k].minus(wk.multiply(oddFFT[k]));
+            y[k].round();
+            y[k + l/2].round();
+        }
+        return y;
+    }
+
+
 
 
     // public static double[][] synth_div(double[] num, double[] den){
@@ -62,7 +100,7 @@ public class Polynomial{
 
     public static Complex[] Fourrier(Complex[] t){
         Polynomial tc = new Polynomial(t);    
-        System.out.println(tc);
+        // System.out.println(tc);
         return tc.evaluateAll(Complex.rootsOfUnity(t.length));
     }
 

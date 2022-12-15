@@ -42,10 +42,31 @@ public class Main{
         if (new Complex(-1,0).exp(new Complex(-1,0)).getReal() == -1)pass ++;else fail++;
 
         Complex[] ft = Polynomial.Fourrier(new Complex[]{new Complex(0,0),new Complex(0,0),new Complex(0,0),new Complex(1,0)});
-        for (int i =0; i < ft.length; i++){
-            System.out.println(i+"::: " + ft[i]);
+        if (ft[0].getReal() == 1 && ft[0].getImaginary() == 0)pass ++;else fail++;
+        if (ft[1].getReal() == 0 && ft[1].getImaginary() == -1)pass ++;else fail++;
+        if (ft[2].getReal() == -1 && ft[2].getImaginary() == 0)pass ++;else fail++;
+        if (ft[3].getReal() == 0 && ft[3].getImaginary() == 1)pass ++;else fail++;
+
+        Complex[] fft = Polynomial.fft(new Complex[]{new Complex(0,0),new Complex(0,0),new Complex(0,0),new Complex(1,0)});
+        if (fft[0].getReal() == 1 && fft[0].getImaginary() == 0)pass ++;else fail++;
+        if (fft[1].getReal() == 0 && fft[1].getImaginary() == 1)pass ++;else fail++;
+        if (fft[2].getReal() == -1 && fft[2].getImaginary() == 0)pass ++;else fail++;
+        if (fft[3].getReal() == 0 && fft[3].getImaginary() == -1)pass ++;else fail++;
+        
+
+        try{
+            if (Polynomial.fft(new Complex[]{new Complex(0,0),new Complex(0,0),new Complex(1,0)}) != null)fail++;
+        }catch (IllegalArgumentException m){
+            if (m.getMessage().equals("l is not a power of 2")){
+                caught++;
+            }else{
+                lost++;
+            }
         }
 
+        for (int i = 0; i < fft.length; i++){
+            System.out.println("divs:: " + fft[i]);
+        }
         // double[] res = Polynomial.synth_div(new double[]{2,0,0}, new double[]{2,0,0});
 
         // for (int i = 0; i < res.length; i++){
