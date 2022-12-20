@@ -5,13 +5,40 @@ class Matter{
     double acceleration = 1;
     double force = 1;
     double mass = 2;
-
-
-    public void updatePosition(){
-        position+= velocity;
+    String name  = "I";
+    public Matter(){}
+    public Matter(double _position){
+        position = _position;
     }
-    public void updateVelocity(){
-        velocity += acceleration;
+
+    public void setName(String _name){
+        name = _name;
+    }
+    public void newupdate(double dt){
+        updateAcceleration();
+        updateVelocityHalfway(dt);
+        updatePosition(dt);
+        updateAcceleration();
+        updateVelocityHalfway(dt);
+        System.out.println(this);
+        updateEmotionalStatus();
+    }
+
+    public void update(double dt){
+        updateAcceleration();
+        updateVelocity(dt);
+        updatePosition(dt);
+        System.out.println(this);
+        updateEmotionalStatus();
+    }
+    public void updatePosition(double dt){
+        position+= velocity*dt;
+    }
+    public void updateVelocityHalfway(double dt){
+        velocity += acceleration/2 *dt;
+    }
+    public void updateVelocity(double dt){
+        velocity += acceleration*dt;
     }
 
     public void updateAcceleration(){
@@ -20,19 +47,20 @@ class Matter{
 
     public String toString(){
         String status = "";
-
-        if (IamFine) status = "I am fine"; else status = "I am not fine";
-         return status+ ", (p:"+getPosition() + ",v:" + getVelocity() + ",a:" + getAcceleration()+")";
+        if (name.equals("I")) name += " am"; else name+= " is";
+        if (IamFine) status = name+ " fine"; else status = name+" not fine";
+        name = name.substring(0,name.length()-3);// to remove the " is"
+        return status+ ", (p: "+getPosition() + " ,v: " + getVelocity() + " ,a: " + getAcceleration()+" )";
     }
 
-    public String getPosition(){
-        return Double.toString(position);
+    public double getPosition(){
+        return position;
     }
-    public String getVelocity(){
-        return Double.toString(velocity);
+    public double getVelocity(){
+        return velocity;
     }
-    public String getAcceleration(){
-        return Double.toString(acceleration);
+    public double getAcceleration(){
+        return acceleration;
     }
     public void updateEmotionalStatus(){
         if (position >10){
