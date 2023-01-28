@@ -1,3 +1,6 @@
+import java.lang.*;
+import java.util.Random;
+
 class Matrix{
     int[][] m;
 
@@ -29,6 +32,37 @@ class Matrix{
 
         Matrix m5 = Matrix.multiply(m2,new Matrix(new int[] {1,2,3}));
         if (m5.get(0,0) == 14 && m5.get(1,0) == 32) pass++; else fail++;
+
+        int n = 100;
+        Matrix mt;
+        double[] p = {1,0.1,0.001,0.0001,1/Math.log10(n),1/(n*n),1/Math.exp(n)};
+        int[] ran = new int[n];
+        Random rand = new Random();
+        for (int i = 0; i < n; i++){
+            ran[i]=rand.nextInt(10000);
+        }
+        Matrix mb = new Matrix(ran);
+        for (double prop:p){
+            mt = new Matrix(n,n);
+            rand = new Random();
+            make:
+            for (int r = 0; r < n; r++){
+                for (int c = 0; c < n; c++){
+                    // System.out.println((c + (r*c))/((double)(n*n)) + " " + prop);
+                    if ((c + (r*c))/((double)(n*n)) >= prop){
+                        break make;
+                    }
+                    mt.add(r,c,rand.nextInt(10000));
+                }
+            }
+            // System.out.println(mt);
+            long startTime = System.currentTimeMillis();
+            Matrix mc = Matrix.multiply(mt,mb);
+            mc.get(0,0);
+            long endTime = System.currentTimeMillis();
+            System.out.println("pr: " + prop + ", time:" + (endTime-startTime));
+        }
+
 
         System.out.println("pass:"+pass + ", fail:" + fail);
     }
